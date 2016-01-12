@@ -1,14 +1,19 @@
+import os
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.login import LoginManager
+from flask.ext.openid import OpenID
+from config import basedir
+from .momentjs import momentjs
+
 
 app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 
-import os
-from flask.ext.login import LoginManager
-from flask.ext.openid import OpenID
-from config import basedir
+app.jinja_env.globals['momentjs'] = momentjs
+
+
 
 lm = LoginManager()
 lm.init_app(app)
