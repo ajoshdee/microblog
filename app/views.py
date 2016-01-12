@@ -6,7 +6,8 @@ from .models import User
 from datetime import datetime
 from forms import LoginForm, EditForm, PostForm, SearchForm
 from models import User, Post
-from config import POSTS_PER_PAGE, MAX_SEARCH_RESULTS
+from config import POSTS_PER_PAGE, MAX_SEARCH_RESULTS, DATABASE_QUERY_TIMEOUT
+from flask.ext.sqlalchemy import get_debug_queries
 
 @lm.user_loader
 def load_user(id):
@@ -170,6 +171,14 @@ def delete(id):
 	db.session.commit()
 	flash('Your post has been deleted.')
 	return redirect(url_for('index'))
+
+@app.after_request
+def after_request(response):
+	for query in get_debug_queries():
+		if query.duration >= DATABASE_QUERY_TIMEOUT:
+			app.logger.warning("SLOW QUERY: %s\nParameters: %s\nDuration: %fs\nContext: %s\n" % (query.statement, query.parameters, query.duration, query.context))
+	return response
+	
 @app.errorhandler(404)
 def not_found_error(error):
 	return render_template('404.html'), 404
