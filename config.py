@@ -1,4 +1,4 @@
-WTF_CSRF_ENABLED = True
+CSRF_ENABLED = True
 SECRET_KEY = 'you will-never-guess'
 # pagination
 POSTS_PER_PAGE = 3
@@ -21,10 +21,12 @@ DATABASE_QUERY_TIMEOUT = 0.5
 WHOOSH_BASE = os.path.join(basedir, 'search.db')
 
 # mail server settings
-MAIL_SERVER = 'localhost'
-MAIL_PORT = 25
-MAIL_USERNAME = None
-MAIL_PASSWORD = None
+MAIL_SERVER = 'smtp.googlemail.com'
+MAIL_PORT = 465
+MAIL_USE_TLS = False
+MAIL_USE_SSL = True
+MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 
 #administrataor list
-ADMINS = ['you@example.com']
+ADMINS = ['silvercrow1229@gmail.com']
