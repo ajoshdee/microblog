@@ -19,3 +19,12 @@ SQLALCHEMY_RECORD_QUERIES = True
 #slow database query threshold (in seconds)
 DATABASE_QUERY_TIMEOUT = 0.5
 WHOOSH_BASE = os.path.join(basedir, 'search.db')
+
+# mail server settings
+MAIL_SERVER = 'localhost'
+MAIL_PORT = 25
+MAIL_USERNAME = None
+MAIL_PASSWORD = None
+
+#administrataor list
+ADMINS = ['you@example.com']
