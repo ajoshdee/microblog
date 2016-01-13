@@ -16,7 +16,7 @@ def send_email(subject, sender, recepients, text_body, html_body):
 	mail.send(msg)
 
 def follower_notification(followed, follower):
-	send_email("[microblog] %s is now following you!" follower.nickname,
+	send_email("[microblog] %s is now following you!" % follower.nickname,
 				ADMINS[0],
 				[followed.email],
 				render_template("follower_email.txt",
