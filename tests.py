@@ -1,4 +1,5 @@
 #!flask/bin/python
+# -*- coding: utf8 -*-
 import os
 import unittest
 from datetime import datetime, timedelta
@@ -6,7 +7,7 @@ from datetime import datetime, timedelta
 from config import basedir
 from app import app, db
 from app.models import User, Post
-
+from app.translate import microsoft_translate
 from coverage import coverage
 cov = coverage(branch=True, omit=['flask/*', 'tests.py'])
 cov.start()
@@ -139,6 +140,10 @@ class TestCase(unittest.TestCase):
             assert u.is_active is True
             assert u.is_anonymous is False
             assert u.id == int(u.get_id())
+
+        def test_translation(self):
+            assert microsoft_translate(u'English', 'en', 'es') == u'Inglés'
+            assert microsoft_translate(u'Español', 'es', 'en') == u'Spanish'
 
         def __repr__(self):  # pragma: no cover
             return '<User %r>' % (self.nickname)

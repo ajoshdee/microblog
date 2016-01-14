@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-01-14 11:14+0800\n"
+"POT-Creation-Date: 2016-01-14 14:19+0800\n"
 "PO-Revision-Date: 2016-01-14 11:11+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,6 +18,10 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.2.0\n"
+
+#: app/__init__.py:37
+msgid "Please log in to access this page."
+msgstr ""
 
 #: app/forms.py:20
 msgid ""
@@ -29,16 +33,28 @@ msgstr ""
 msgid "This nickname is already in use. Please choose another one."
 msgstr ""
 
-#: app/views.py:59
+#: app/translate.py:15
+msgid "Error: translation service not configured."
+msgstr ""
+
+#: app/translate.py:38
+msgid "Error: Unexpected error."
+msgstr ""
+
+#: app/views.py:71
 msgid "Invalid login. Please try again."
 msgstr ""
 
-#: app/templates/base.html:27
+#: app/templates/base.html:30
 msgid "Home"
 msgstr ""
 
-#: app/templates/post.html:6
+#: app/templates/posts.html:6
 #, python-format
 msgid "%(nickname)s said %(when)s:"
+msgstr ""
+
+#: app/templates/posts.html:10
+msgid "Translate"
 msgstr ""
 

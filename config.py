@@ -32,10 +32,13 @@ MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 #administrataor list
 ADMINS = ['silvercrow1229@gmail.com']
 
-
 #...
 # available languages
 LANGUAGES = {
 	'en': 'English',
 	'es': 'Español'
 }
+
+# microsoft translation service
+MS_TRANSLATOR_CLIENT_ID = 'microblog_josh_test'
+MS_TRANSLATOR_CLIENT_SECRET = 'aYac3jbFP+wADl5C8scW7rmlvmhGZj+r07EPL0jc3js='
