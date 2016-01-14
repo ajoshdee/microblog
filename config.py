@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 CSRF_ENABLED = True
 SECRET_KEY = 'you will-never-guess'
 # pagination
@@ -30,3 +31,11 @@ MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 
 #administrataor list
 ADMINS = ['silvercrow1229@gmail.com']
+
+
+#...
+# available languages
+LANGUAGES = {
+	'en': 'English',
+	'es': 'Español'
+}

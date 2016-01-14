@@ -1,8 +1,9 @@
 from app import db
 from hashlib import md5
 from app import app
-
+import re
 import sys
+
 if sys.version_info >= (3, 0):
 	enable_search = False
 else:
@@ -62,6 +63,7 @@ class User(db.Model):
 		return '<User %r>' % (self.nickname)
 	def avatar(self, size):
 		return 'http://www.gravatar.com/avatar/%s?d=mm&s=%d' % (md5(self.email.encode('utf-8')).hexdigest(), size)
+	
 	@staticmethod
 	def make_unique_nickname(nickname):
 		if User.query.filter_by(nickname=nickname).first() is None:
@@ -73,6 +75,10 @@ class User(db.Model):
 				break
 			version += 1
 		return new_nickname
+
+	@staticmethod
+	def make_valid_nickname(nickname):
+		return re.sub('[^a-zA-Z0-9_\.]', '', nickname)
 
 class Post(db.Model):
 	__searchable__ = ['body']

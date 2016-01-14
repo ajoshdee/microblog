@@ -1,18 +1,23 @@
 from flask import render_template, flash, redirect, session, url_for, request, g
 from flask.ext.login import login_user, logout_user, current_user, login_required
-from app import app, db, lm, oid
+from app import app, db, lm, oid, babel
 from .forms import LoginForm
 from .models import User
 from datetime import datetime
 from forms import LoginForm, EditForm, PostForm, SearchForm
 from models import User, Post
-from config import POSTS_PER_PAGE, MAX_SEARCH_RESULTS, DATABASE_QUERY_TIMEOUT
+from config import POSTS_PER_PAGE, MAX_SEARCH_RESULTS, DATABASE_QUERY_TIMEOUT, LANGUAGES
 from flask.ext.sqlalchemy import get_debug_queries
 from .emails import follower_notification
+from flask.ext.babel import gettext
 
 @lm.user_loader
 def load_user(id):
 	return User.query.get(int(id))
+	
+@babel.localeselector
+def get_locale():
+	return request.accept_language.best_match(LANGUAGES.keys())
 
 @app.before_request
 def before_request():
@@ -22,6 +27,7 @@ def before_request():
 		db.session.add(g.user)
 		db.session.commit()
 		g.search_form = SearchForm()
+	g.locale = get_locale()
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -52,13 +58,14 @@ def login():
 @oid.after_login
 def after_login(resp):
 	if resp.email is None or resp.email == "":
-		flash('Invalid login. Please try again.')
+		flash(gettext('Invalid login. Please try again.'))
 		return redirect(url_for('login'))
 	user = User.query.filter_by(email=resp.email).first()
 	if user is None:
 		nickname = resp.nickname
 		if nickname is None or nickname == "":
 			nickname = resp.email.split('@')[0]
+		nickname = User.make_valid_nickname(nickname)
 		nickname = User.make_unique_nickname(nickname)
 		user = User(nickname=nickname, email=resp.email)
 		db.session.add(user)
