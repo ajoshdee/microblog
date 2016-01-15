@@ -21,6 +21,9 @@ SQLALCHEMY_RECORD_QUERIES = True
 DATABASE_QUERY_TIMEOUT = 0.5
 WHOOSH_BASE = os.path.join(basedir, 'search.db')
 
+# Whoosh does not work on Heroku
+WHOOSH_ENABLED = os.environ.get('HEROKU') is None
+
 # mail server settings
 MAIL_SERVER = 'smtp.googlemail.com'
 MAIL_PORT = 465

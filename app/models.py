@@ -1,6 +1,7 @@
 from app import db
 from hashlib import md5
 from app import app
+from config import WHOOSH_ENABLED
 import re
 import sys
 
@@ -8,6 +9,10 @@ if sys.version_info >= (3, 0):
     enable_search = False
 else:
     enable_search = True
+    import flask.ext.whooshalchemy as whooshalchemy
+
+enable_search = WHOOSH_ENABLED
+if enable_search:
     import flask.ext.whooshalchemy as whooshalchemy
 
 followers = db.Table('followers',
